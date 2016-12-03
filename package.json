@@ -11,5 +11,20 @@
     "replace"
   ],
   "author": "Bill Heitzeg",
-  "license": "ISC"
+  "license": "ISC",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "^3.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/billfromannarbor/okfindandreplace.git"
+  },
+  "bugs": {
+    "url": "https://github.com/billfromannarbor/okfindandreplace/issues"
+  },
+  "homepage": "https://github.com/billfromannarbor/okfindandreplace#readme"
 }
