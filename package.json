@@ -1,0 +1,15 @@
+{
+  "name": "okfindandreplace",
+  "version": "1.0.0",
+  "description": "Simple multidocument find and replace tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "find",
+    "replace"
+  ],
+  "author": "Bill Heitzeg",
+  "license": "ISC"
+}
