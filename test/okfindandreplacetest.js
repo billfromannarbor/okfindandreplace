@@ -3,6 +3,7 @@
 const csvToJSONTable = require("../index.js")
 const assert = require("assert")
 const util = require("util")
+const fs = require("fs")
 
 //This will be a test to find all instances of @"
 //It will pull the prefix in the code and place them in a dictionary.
@@ -18,9 +19,19 @@ const util = require("util")
 //Tear down, delete the files and directories
 
 describe("Get all the files from a directory", function getFilesTest() {
+	var pathForFindAndReplace
 	before("Setup the directories", function setupTheDirectories(done) {
-		done()
+		fs.mkdtemp("/tmp/okfindandreplace-", (error,folder) => {
+  		if (error) {
+  			done(error)
+  		}
+		else {
+  			pathForFindAndReplace=folder
+			done()
+			}
+		})
 	})
+	
 	before("Setup the files", function setupTheDirectories(done) {
 		done()
 	})
@@ -36,7 +47,14 @@ describe("Get all the files from a directory", function getFilesTest() {
 
 	
 	after( "Remove the directories", function deleteTheFilesAndDirectories(done) {
-		done()
+		fs.rmdir(pathForFindAndReplace, function removeFindAndReplaceDirectory(error) {
+			if ( error) {
+				done(error)
+				}
+			else {
+				done()
+				}
+			})
 	})
 	
 	after( "Remove the files", function deleteTheFilesAndDirectories(done) {
