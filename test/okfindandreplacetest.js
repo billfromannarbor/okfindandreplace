@@ -37,39 +37,55 @@ describe("Get all the files from a directory", function getFilesTest() {
 		var fileName
 		fileName=pathForFindAndReplace+"/dog.m"
 		files.push(fileName)
-		fs.writeFile(fileName,"Label Text = @\"myLabelText\"", (err) => {
-  		if (err) {
- 			done(err)
+		fs.writeFile(fileName,"Label Text = @\"myLabelText\"", (error) => {
+	  		if (error) {
+ 				done(error)
   			}
-  		else {
-  			done()
+  			else {
+  				done()
   			}
 		})
 	})
 
 	
 	it("Verifies that the directories are present", function verifyThatDirectoriesExist(done) {
-		done(new Error("Not Implemented"))
+		fs.stat(pathForFindAndReplace, function(error, stats) {
+			if (error) {
+				done(error)
+			}
+			else {
+				done()
+			}
+		})
 	})	
 	
 	it("Verifies that the files are present", function verifyThatDirectoriesExist(done) {
-		done(new Error("Not Implemented"))
+		for (var i = 0, len = files.length; i < len; i++) {
+			fileName=files[i]
+			fs.stat(fileName, function(error, stats) {
+				if ( error) {
+					done(error)
+				}
+				else {
+					done()
+				}
+			})
+		}
 	})	
 
 	
 	after( "Remove the files", function deleteTheFilesAndDirectories(done) {
 		for (var i = 0, len = files.length; i < len; i++) {
 			fileName=files[i]
-			console.log(fileName)
 			fs.unlink(fileName, function removeFindAndReplaceFile(error) {
 				if ( error) {
 					done(error)
-					}
+				}
 				else {
 					done()
-					}
-				})
-			}
+				}
+			})
+		}
 	})
 
 	after( "Remove the directories", function deleteTheFilesAndDirectories(done) {
