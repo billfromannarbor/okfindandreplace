@@ -20,6 +20,7 @@ const fs = require("fs")
 
 describe("Get all the files from a directory", function getFilesTest() {
 	var pathForFindAndReplace
+	var files=[]
 	before("Setup the directories", function setupTheDirectories(done) {
 		fs.mkdtemp("/tmp/okfindandreplace-", (error,folder) => {
   		if (error) {
@@ -33,7 +34,17 @@ describe("Get all the files from a directory", function getFilesTest() {
 	})
 	
 	before("Setup the files", function setupTheDirectories(done) {
-		done()
+		var fileName
+		fileName=pathForFindAndReplace+"/dog.m"
+		files.push(fileName)
+		fs.writeFile(fileName,"Label Text = @\"myLabelText\"", (err) => {
+  		if (err) {
+ 			done(err)
+  			}
+  		else {
+  			done()
+  			}
+		})
 	})
 
 	
@@ -46,6 +57,21 @@ describe("Get all the files from a directory", function getFilesTest() {
 	})	
 
 	
+	after( "Remove the files", function deleteTheFilesAndDirectories(done) {
+		for (var i = 0, len = files.length; i < len; i++) {
+			fileName=files[i]
+			console.log(fileName)
+			fs.unlink(fileName, function removeFindAndReplaceFile(error) {
+				if ( error) {
+					done(error)
+					}
+				else {
+					done()
+					}
+				})
+			}
+	})
+
 	after( "Remove the directories", function deleteTheFilesAndDirectories(done) {
 		fs.rmdir(pathForFindAndReplace, function removeFindAndReplaceDirectory(error) {
 			if ( error) {
@@ -57,8 +83,5 @@ describe("Get all the files from a directory", function getFilesTest() {
 			})
 	})
 	
-	after( "Remove the files", function deleteTheFilesAndDirectories(done) {
-		done()
-	})
 })
 
