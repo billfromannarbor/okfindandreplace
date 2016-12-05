@@ -10,6 +10,6 @@ exports.findAll = findAll
 function findAll(baseDirectory, callback) {
 	var list = []
 	fs.readdir(baseDirectory,function(error, files) {
-		callback(files)
+		callback(error, files)
 	})
 }
