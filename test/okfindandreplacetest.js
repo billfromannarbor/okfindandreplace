@@ -4,6 +4,7 @@ const csvToJSONTable = require("../index.js")
 const assert = require("assert")
 const util = require("util")
 const fs = require("fs")
+const okfind = require("../okfindandreplace.js")
 
 //This will be a test to find all instances of @"
 //It will pull the prefix in the code and place them in a dictionary.
@@ -17,6 +18,7 @@ const fs = require("fs")
 //Get all the files from a specified directory
 //Setup, create a bunch of files and a bunch of directories
 //Tear down, delete the files and directories
+
 
 describe("Get all the files from a directory", function getFilesTest() {
 	var pathForFindAndReplace
@@ -59,6 +61,7 @@ describe("Get all the files from a directory", function getFilesTest() {
 		})
 	})	
 	
+
 	it("Verifies that the files are present", function verifyThatDirectoriesExist(done) {
 		for (var i = 0, len = files.length; i < len; i++) {
 			fileName=files[i]
@@ -73,6 +76,16 @@ describe("Get all the files from a directory", function getFilesTest() {
 		}
 	})	
 
+	it("Calls findAll which returns a dictionary of all instances of @\ as a list", function testFindAll(done) {
+		okfind.findAll(pathForFindAndReplace, function findAllList(list) {
+			if ( list.length == 1 ) {
+				done()
+			}
+			else {
+				done(Error("Error in findall should return 1, but is returning: " + list.length))
+			}
+		})
+	})
 	
 	after( "Remove the files", function deleteTheFilesAndDirectories(done) {
 		for (var i = 0, len = files.length; i < len; i++) {
